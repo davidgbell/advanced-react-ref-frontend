@@ -7,7 +7,7 @@ export const Nav = () => {
       <Link href='/products'>Products</Link>
       <Link href='/sell'>Sell</Link>
       <Link href='/orders'>Orders</Link>
-      <Link href='/Account'>Account </Link>
+      <Link href='/account'>Account </Link>
     </nav>
   );
 };
