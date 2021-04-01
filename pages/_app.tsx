@@ -1,7 +1,10 @@
+import { ApolloProvider } from '@apollo/client';
+import apollo from 'next-with-apollo/lib/apollo';
 import { Layout } from '../components/Layout';
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 import NProgress from 'nprogress';
+import withData from '../lib/withData';
 
 import '../components/styles/nprogress.css';
 
@@ -11,20 +14,32 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, apollo }) {
+  console.log(apollo);
   return (
     <>
-      <InnerStyles>
-        <Layout>
-          <GlobalStyles />
-          <Component {...pageProps} />
-        </Layout>
-      </InnerStyles>
+      <ApolloProvider client={apollo}>
+        <InnerStyles>
+          <Layout>
+            <GlobalStyles />
+            <Component {...pageProps} />
+          </Layout>
+        </InnerStyles>
+      </ApolloProvider>
     </>
   );
 }
 
-export default MyApp;
+MyApp.getInitialProps = async function ({ Component, ctx }) {
+  let pageProps = {};
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+  pageProps.query = ctx.query;
+  return { pageProps };
+};
+
+export default withData(MyApp);
 
 const GlobalStyles = createGlobalStyle`
     :root {

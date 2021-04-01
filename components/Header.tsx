@@ -37,7 +37,7 @@ export const Header = () => {
     <HeaderStyles>
       <div className='bar'>
         <Logo>
-          <Link href='/'>Farmers Market</Link>
+          <Link href='/'>Thirsty Plants</Link>
         </Logo>
       </div>
       <div className='sub-bar'>
