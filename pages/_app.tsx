@@ -1,5 +1,4 @@
 import { ApolloProvider } from '@apollo/client';
-import apollo from 'next-with-apollo/lib/apollo';
 import { Layout } from '../components/Layout';
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
@@ -15,7 +14,6 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 function MyApp({ Component, pageProps, apollo }) {
-  console.log(apollo);
   return (
     <>
       <ApolloProvider client={apollo}>
